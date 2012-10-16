@@ -51,7 +51,7 @@
       <article>
         <h1 class="title">Hardware Mikrotik</h1>
         <hr class="title" />
-        <img class="logo" src="images/hardware.jpg" />
+        <img class="logo shadow" src="images/hardware.jpg" />
         <p>Repasemos un poco las características de los routers Mikrotik.</p>
         <ul>
             <li><strong>Amplia gama.</strong> De lo más básico (39 euros) a routers de 1MPPS (400 euros).</li>
@@ -74,8 +74,8 @@
       <article>
         <h1 class="title">Qué pretendemos</h1>
         <hr class="title" />
-        <img class="logo" src="images/hardware.jpg" />
-        <p>Vamos a coger la <strong>RB450</strong> que tenemos disponible y le vamos a realizar las siguientes operaciones.</p>
+        <img class="logo shadow" src="images/hardware.jpg" />
+        <p>Vamos a trabajar con la <strong>RB450</strong> que tenemos disponible y le vamos a realizar las siguientes operaciones.</p>
         <ul>
             <li><strong>Resetearla a valores por defecto.</strong></li>
             <li><strong>Acceder a ella vía Winbox/WebFig/SSH.</strong></li>
@@ -85,6 +85,133 @@
             <li><strong>Configurar el servidor de túneles PPTP</strong></li>
         </ul>
       </article>
+
+      <article>
+        <h1 class="title">Reseteo a valores por defecto</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/rb450mini.jpg" />
+        <p>El router nos puede venir pre-configurado como es el caso. Vamos a resetearlo a valores por defecto primero que nada.</p>
+        <ul>
+            <li><strong>Nos conectamos a la web del router:</strong> <a href="http://routerboard.com/RB450G">http://routerboard.com/RB450G</a>.</li>
+            <li><strong>En la "Quick Guide" nos dices que para resetear hay que cortocircuitar el jumper de reset</strong>. Con un destornillador hacemos contacto y realizamos una secuencia de reinicio.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 class="title">Conectar por primera vez</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/rj45.jpg" />
+        <p>Los cacharros Mikrotik suelen alimentarse por POE en el primer puerto, y en ese mismo puerto tienen una IP en la configuración por defecto, la <strong>192.168.88.1</strong>. Por tanto:</p>
+        <ul>
+            <li><strong>Accedemos al router conectando un cable RJ-45 del ordenador al primer puerto del Mikrotik.</strong></li>
+            <li><strong>Nos configuramos una IP del rango 192.168.88.0/24 para poder llegar hasta él.</strong></li>
+            <li><strong>O usamos la opción mágica: Accedemos con una búsqueda por MAC gracias a Winbox.</strong></li>
+            <li><strong>El usuario por defecto es "admin", sin contraseña</strong></li>
+        </ul>
+      </article>
+
+      <article class='fill'>
+        <h3></h3>
+        <img alt="Configuración para acceso IP" src="images/881.png" />
+        <img alt="Acceso por MAC desde Winbox" src="images/winboxmac.png" />
+      </article>
+
+      <article>
+        <h1 class="title">Winbox</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/winbox01.jpg" />
+        <p>Winbox es la herramienta Win32 que nos proporciona Mikrotik para gestionar sus cacharros.</p>
+        <ul>
+            <li><strong>Para Windows, pero funciona en Linux con Wine.</strong></li>
+            <li><strong>Cómoda si estás habituado a herramientas de escritorio.</strong></li>
+            <li><strong>La que más funcionalidad da de las tres posibles.</strong></li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 class="title">WebFig</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/webfig01.png" />
+        <p>WebFig la incluyeron a partir de la versión 5.0 de RouterOS, es un entorno web similar a <strong>Winbox</strong></p>
+        <ul>
+            <li><strong>No necesitamos más que un navegador, da igual la plataforma.</strong></li>
+            <li><strong>No tan cómoda y funcional como Winbox.</strong></li>
+            <li><strong>Acceso web:</strong> http://192.168.88.1</strong></li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 class="title">Línea de comandos: SSH o Telnet</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/mikrotik1.jpg" />
+        <p>También podemos acceder a cualquier sistema mikrotik vía SSH o telnet. Es el que yo suelo utilizar más por lo cómodo y rápido.</p>
+        <ul>
+            <li><strong>Secciones unificadas con las dos herramientas anteriores</strong></li>
+            <li><strong>Acceso en modo consola: telnet o SSH.</strong></li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 class="title">Actualicemos el firmware</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/firmware.jpg" />
+        <p>Lo primero que suelo hacer yo es bajar la última versión de firmware y actualizar. Es un proceso sencillo e inocuo con el que no podemos romper nada.</p>
+        <ul>
+            <li><strong>Descargamos el último firmware de la web de Mikrotik:</strong> <a href="http://http://www.mikrotik.com/download">http://www.mikrotik.com/download</a></li>
+            <li><strong>Descargamos el paquete NPK, a no ser que necesitemos funciones adicioneles (bajaríamos el .zip)</strong></li>
+            <li><strong>Subimos el archivo por FTP y lo dejamos caer al directorio raiz.</strong></li>
+            <li><strong>Reiniciamos (/system reboot)</strong> y ya está.</li>
+        </ul>
+      </article>
+
+      <article>
+        <h1 class="title">Segmentar el switch</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/rb450mini.jpg" />
+        <p>Este cacharro Mikrotik lleva un switch de 4 puertos, que nos va a interesar desligar, de manera que cada puerto será un interfaz en un segmento de red diferente. Para conseguirlo, accedemos a la siguiente sección:</p>
+        <br />
+        <img src="images/switch01.png" />
+        <p>Comentamos entre todos como cambiarlo</p>
+        </pre>
+      </article>
+
+      <article>
+        <h1 class="title">Nombrar y comentar las interfaces</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/rb450mini.jpg" />
+        <p>Veamos ahora cómo tenemos las interfaces y les ponemos comentarios para saber qué tenemos que conectar en cada puerto.</p>
+        <br />
+        <img src="images/interfaces01.png" />
+        <p>Comentamos entre todos como cambiarlo</p>
+        </pre>
+
+      </article>
+
+      <article>
+        <h1 class="title">Configurar las direcciones IP de las interfaces</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/ip.jpg" />
+        <p>Configuremos ahora las direcciones IP que queremos poner en cada segmento de Red.</p>
+        <br />
+        <img src="images/ip01.png" />
+        <p>Comentamos entre todos como cambiarlo</p>
+        </pre>
+
+      </article>
+
+      <article>
+        <h1 class="title">Usuarios</h1>
+        <hr class="title" />
+        <img class="logo shadow" src="images/user.png" />
+        <p>Vamos a ver cómo cambiar la contraseña del usuario <strong>admin</strong>, y también crear un usuario <strong>guest</strong> con acceso anónimo en solo lectura.</p>
+        <br />
+        <img src="images/ip01.png" />
+        <p>Comentamos entre todos como cambiarlo</p>
+        </pre>
+
+      </article>
+
+    </section>
 
   </body>
 </html>
